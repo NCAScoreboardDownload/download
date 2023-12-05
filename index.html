@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download File</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="downloadFile()">Download File</button>
+
+    <script>
+        function downloadFile() {
+            // Replace 'your-username' and 'your-repo' with your GitHub username and repository name
+            const githubRepoUrl = 'https://raw.githubusercontent.com/NCAScoreboardDownload/download/main/';
+            const fileName = 'example.txt'; // Change this to the name of your file
+
+            const fileUrl = `${githubRepoUrl}${fileName}`;
+
+            fetch(fileUrl)
+                .then(response => response.text())
+                .then(data => {
+                    const blob = new Blob([data], { type: 'text/plain' });
+                    const link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = fileName;
+                    link.click();
+                })
+                .catch(error => console.error('Error downloading file:', error));
+        }
+    </script>
+</body>
+</html>
